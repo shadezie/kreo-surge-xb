@@ -205,3 +205,14 @@ for(let i=0;i<8;i++) {
 const product=document.createElement('a');product.href='https://kreo-tech.com/products/surge-xb-wireless-gaming-controller';product.textContent='Kreo product page';product.target='_blank';product.rel='noopener';byId('sources').append(product);
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!document.querySelector('dialog[open]')&&!['INPUT','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();byId('manual-open').click();byId('query').focus();}});
 openGuide(location.hash.slice(1));
+
+const fsBtn = byId('fs-toggle');
+function setFullscreen(on) {
+  document.body.classList.toggle('fs', on);
+  fsBtn.setAttribute('aria-pressed', String(on));
+  fsBtn.setAttribute('aria-label', on ? 'Exit full screen 3D view' : 'Enter full screen 3D view');
+  fsBtn.innerHTML = `<i data-lucide="${on ? 'minimize-2' : 'maximize-2'}"></i>`;
+  drawIcons();
+}
+fsBtn.onclick = () => setFullscreen(!document.body.classList.contains('fs'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('fs')) setFullscreen(false); });
