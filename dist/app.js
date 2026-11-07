@@ -9,6 +9,7 @@ const picker = byId('task');
 const menu = byId('task-menu'), search = byId('task-search');
 function closeMenu() {
   menu.hidden = true;
+  document.body.classList.remove('sheet-open');
   picker.setAttribute('aria-expanded','false');
 }
 function matchesGuide(task, query) {
@@ -38,9 +39,11 @@ function listGuides() {
 picker.onclick = () => {
   if (!menu.hidden) return closeMenu();
   menu.hidden = false; picker.setAttribute('aria-expanded','true');
-  search.value = ''; listGuides(); search.focus();
+  if (matchMedia('(max-width: 760px)').matches) document.body.classList.add('sheet-open');
+  search.value = ''; listGuides(); if (matchMedia('(hover: hover)').matches) search.focus();
 };
 search.oninput = listGuides;
+byId('task-close').onclick = () => { closeMenu(); picker.focus(); };
 menu.onkeydown = e => {
   if (e.key === 'Escape') {closeMenu(); picker.focus(); return;}
   const choices = [...menu.querySelectorAll('button')];
@@ -102,7 +105,7 @@ function makeExtras(step) {
   for (const key of step.keys) {
     const chip = document.createElement('button');
     chip.className = 'chip'; chip.textContent = controlMeta[key][0];
-    chip.title = 'Locate ' + chip.textContent; chip.onclick = () => locate(key); box.append(chip);
+    chip.title = 'Locate ' + chip.textContent; chip.onclick = () => { locate(key); const st = document.querySelector('.stage'); if (st.getBoundingClientRect().bottom < 120) st.scrollIntoView({behavior:'smooth', block:'start'}); }; box.append(chip);
   }
   const note = step.note || (guide.id === 'bt-pc' ? 'PC Bluetooth supports X-input only.' : '');
   if (note) { const p = document.createElement('p'); p.textContent = note; box.append(p); }
