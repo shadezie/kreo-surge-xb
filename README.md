@@ -2,6 +2,8 @@
 
 An interactive, step-by-step 3D guide for the **Kreo Surge XB** controller. Pick what you want to do, follow the steps, and see exactly which button or part to use on a 3D model.
 
+**Live site: [surge-xb.vercel.app](https://surge-xb.vercel.app)**
+
 > **Disclaimer:** I am not affiliated with Kreo in any way. The Kreo Surge XB (Black) controller and its user guide are official Kreo products. This website only presents that same official guide in an interactive, easy-to-follow format. All guide content belongs to Kreo. I am not selling anything. This is a free, open source project I made for myself and for anyone who finds it useful.
 >
 > If anything here differs from the printed guide, follow the printed guide. If Kreo would like this taken down, please open an issue.
@@ -17,6 +19,8 @@ An interactive, step-by-step 3D guide for the **Kreo Surge XB** controller. Pick
 I think Kreo should offer something like this officially, so users can just open the setup and go step by step.
 
 ## How to use it
+
+Just open **[surge-xb.vercel.app](https://surge-xb.vercel.app)** on your phone or computer.
 
 Run the site locally:
 
