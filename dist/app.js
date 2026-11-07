@@ -138,7 +138,7 @@ function showStep(index, refocus = false) {
     list.append(item);
   });
   byId('counter').textContent = `STEP ${twoDigits(index+1)} / ${twoDigits(guide.steps.length)}`;
-  byId('meter').style.width = (index+1)/guide.steps.length*100 + '%';
+  byId('meter').style.transform = `scaleX(${(index+1)/guide.steps.length})`;
   byId('prev').disabled = !index;
   const last = index === guide.steps.length-1;
   byId('next').innerHTML = last ? (finished.has(guide.id) ? 'Completed ' : 'Finish guide ') + icon('check') : '<span>Next: '+guide.steps[index+1].title+'</span>'+icon('arrow-right');
@@ -198,7 +198,7 @@ byId('manual-open').onclick = () => { renderManual(); byId('library').showModal(
 byId('query').oninput = renderManual;
 for (const d of document.querySelectorAll('dialog')) {
   d.querySelector('.close').onclick = () => d.close();
-  d.onclick = e => { if (e.target===d && !d.matches(':hover')) d.close(); };
+  d.onclick = e => { if (e.target===d && !d.matches(':hover')) animateOut(d, () => d.close()); };
 }
 function photoSource(page) { return `manual/IMG_${page}.jpg`; }
 for(let i=0;i<8;i++) {
@@ -219,3 +219,17 @@ function setFullscreen(on) {
 }
 fsBtn.onclick = () => setFullscreen(!document.body.classList.contains('fs'));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('fs')) setFullscreen(false); });
+
+// Slide sheets down before hiding them on phones (skipped on desktop and when nothing is open).
+const isPhone = () => matchMedia('(max-width: 760px)').matches;
+function animateOut(el, done) {
+  if (!isPhone() || el.classList.contains('closing')) return done();
+  el.classList.add('closing');
+  el.addEventListener('animationend', () => { el.classList.remove('closing'); done(); }, {once: true});
+}
+const hideMenu = closeMenu;
+closeMenu = () => { if (menu.hidden) return hideMenu(); animateOut(menu, hideMenu); };
+for (const dialog of document.querySelectorAll('dialog')) {
+  dialog.addEventListener('cancel', e => { e.preventDefault(); animateOut(dialog, () => dialog.close()); });
+  dialog.querySelector('.close')?.addEventListener('click', e => { e.stopImmediatePropagation(); animateOut(dialog, () => dialog.close()); }, true);
+}
