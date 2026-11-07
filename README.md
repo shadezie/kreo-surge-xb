@@ -16,9 +16,7 @@ I think Kreo should offer something like this officially, so users can just open
 
 ## How to use it
 
-**Easiest:** download `Kreo-Surge-XB-Interactive-Guide.html` and open it in your browser. It works fully offline, with the 3D model and all manual pages included.
-
-**Or run the site locally:**
+Run the site locally:
 
 ```sh
 python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
