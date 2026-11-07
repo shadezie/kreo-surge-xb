@@ -2,7 +2,7 @@
 
 An interactive, step-by-step 3D guide for the **Kreo Surge XB** controller. Pick what you want to do, follow the steps, and see exactly which button or part to use on a 3D model.
 
-> **Disclaimer:** I am not affiliated with Kreo in any way. This is not an official Kreo product. I am not selling anything. It is a free, open source project I made for myself and for anyone who finds it useful.
+> **Disclaimer:** I am not affiliated with Kreo in any way. The Kreo Surge XB (Black) controller is an official Kreo product, but this guide is not made or endorsed by Kreo. I am not selling anything. It is a free, open source project I made for myself and for anyone who finds it useful.
 
 ## Why I made this
 
